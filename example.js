@@ -5,27 +5,25 @@ const seedr = new Seedr(
     "password"
 );
 
-const magnet = "MAGNET_LINK_HERE";
+const magnet = "MAGNET_LINK";
 
-async function sleep(ms) {
+function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
 }
 
 async function run() {
 
-    console.log("Adding magnet...");
-
     const transfer = await seedr.addMagnet(magnet);
 
     const transferId = transfer.id;
 
-    console.log("Transfer ID:", transferId);
+    console.log("Magnet added:", transferId);
 
-    let folderId = null;
+    let folderId;
 
     while (true) {
 
-        const status = await seedr.transfer(transferId);
+        const status = await seedr.getTransfer(transferId);
 
         console.log("Progress:", status.progress);
 
@@ -37,9 +35,7 @@ async function run() {
         await sleep(5000);
     }
 
-    console.log("Download finished");
-
-    const folder = await seedr.folder(folderId);
+    const folder = await seedr.getFolder(folderId);
 
     for (const file of folder.files) {
 
@@ -48,18 +44,16 @@ async function run() {
             file.name.endsWith(".srt")
         ) {
 
-            console.log("Downloading", file.name);
+            console.log("Downloading:", file.name);
 
             await seedr.downloadFile(
                 file.id,
                 `./${file.name}`
             );
 
-            console.log("Downloaded", file.name);
+            console.log("Downloaded:", file.name);
 
             await seedr.deleteFile(file.id);
-
-            console.log("Deleted from Seedr");
         }
     }
 
