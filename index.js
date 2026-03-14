@@ -1,8 +1,8 @@
-import axios from "axios";
-import fs from "fs";
-import FormData from "form-data";
+const axios = require("axios");
+const fs = require("fs");
+const FormData = require("form-data");
 
-export default class Seedr {
+class Seedr {
 
     constructor(email, password) {
         this.client = axios.create({
@@ -187,3 +187,5 @@ export default class Seedr {
     }
 
 }
+
+module.exports = Seedr;

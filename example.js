@@ -1,4 +1,4 @@
-import Seedr from "./index.js";
+const Seedr = require("./index.js");
 
 const seedr = new Seedr(
     "email",
