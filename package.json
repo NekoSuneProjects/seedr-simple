@@ -1,7 +1,7 @@
 {
   "name": "@nekosuneprojects/seedr-simple",
   "version": "1.0.0",
-  "description": "Simple Seedr REST API wrapper",
+  "description": "Full Seedr REST API v1 wrapper",
   "main": "index.js",
   "type": "module",
   "dependencies": {
